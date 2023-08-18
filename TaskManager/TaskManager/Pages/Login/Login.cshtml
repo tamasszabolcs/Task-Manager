@@ -1,0 +1,36 @@
+﻿@page "/login"
+@model TaskManager.Pages.Login.LoginModel
+@{
+    var InvalidUsernameOrPassword = ViewData["InvalidUsernameOrPassword"]?.ToString();
+    var notEnteredUsernamePassword = ViewData["notEnteredUsernamePassword"]?.ToString();
+
+}
+@{
+    ViewData["Title"] = "Login";
+}
+<div style="display:flex; flex-direction: row; margin-top: 80px; justify-content: space-between; gap: 100px;">
+    <img src="~/Images/login.jpg" style="width: 50%; height:40%; margin-top: 130px; min-width: 10px;" />
+    <div style="width: 40%; margin-top: 50px; display: flex; flex-direction: column; align-items: flex-start;">
+        <h1>Login</h1>
+        <form style="border: 1.5px solid black; padding: 50px; margin-top: 10px; width: 100%;" method="post">
+            <div class="form-group" style="margin-bottom: 30px; margin-top: 20px;">
+                <input type="text" class="form-control" style="height: 45px;" placeholder="Username" asp-for="getUser.Username">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 30px; margin-top: 20px;">
+                <input type="password" class="form-control" style="height: 45px;" placeholder="Password" asp-for="getUser.Password">
+            </div>
+
+            @if (!string.IsNullOrEmpty(InvalidUsernameOrPassword))
+            {
+                <div class="alert alert-danger" role="alert">@InvalidUsernameOrPassword</div>
+            }
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 30px;">Log In</button>
+
+            <div style="border-top: 1.5px solid #D2CFCF;">
+                <h6 style="text-align: center; margin-top: 15px;">Don't have an account?<a style="color : forestgreen; margin-left: 5px;" asp-page="/SignUp/SignUp">Sign Up</a></h6>
+            </div>
+        </form>
+    </div>
+</div>

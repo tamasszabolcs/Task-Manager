@@ -1,0 +1,564 @@
+﻿@page
+@using TaskManager.Models;
+@using TaskManager.Pages;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<div class="col text-end">
+    <a class="btn btn-primary" asp-area="" asp-page="/CardView">
+        View as card
+    </a>
+</div>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="above_table">
+            <div class="col-6">
+                <h2 class="text-primary">
+                    CURRENT TASKS
+                </h2>
+            </div>
+            <form class="d-flex" method="get">
+                <div class="search_clearSearch_buttons">
+                    <input class="form-control form-control-lg me-sm-2" type="search" name="searchString" placeholder="Search" value="@Request.Query["searchString"]">
+
+                    @if (!string.IsNullOrEmpty(Request.Query["searchString"]))
+                    {
+
+                        <a href="@Url.Action("Index")"><button type="button" class="btn btn-secondary">Clear Search</button></a>
+                    }
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+
+                </div>
+            </form>
+
+            <div class="col-6 text-end">
+                <a class="btn btn-primary" asp-area="" asp-page="/Tasks/AddTask">
+                    <i class="bi bi-plus-circle"></i> &nbsp; Add New Task
+                </a>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-3">
+                <div class="card" id="category-filter-card">
+                    <div class="card-header">
+                        <h5 class="card-title">Filter by Category</h5>
+                    </div>
+                    <div style="display: flex; flex-direction: column; padding: 10px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="categoryFilter" id="category-0" value="0" checked>
+                            <label class="form-check-label" for="category-0">All</label>
+                        </div>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <div>
+                                <input class="form-check-input" type="checkbox" name="categoryFilter" id="category-@category.CategoryId" value="@category.CategoryId">
+                                <label class="form-check-label" for="category-@category.CategoryId">@category.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="card" id="status-filter-card">
+                    <div class="card-header">
+                        <h5 class="card-title">Filter by Status</h5>
+                    </div>
+                    <div style="display: flex; flex-direction: column; padding: 10px;">
+                        <div>
+                            <input class="form-check-input" type="checkbox" name="statusFilter" id="status-0" value="0" checked>
+                            <label class="form-check-label" for="status-0">All</label>
+                        </div>
+                        @foreach (var category in Model.Statuses)
+                        {
+                            <div>
+                                <input class="form-check-input" type="checkbox" name="statusFilter" id="status-@category.StatusId" value="@category.StatusId">
+                                <label class="form-check-label" for="status-@category.StatusId">@category.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+                
+            
+<<<<<<< HEAD
+
+            <div class="col-9 text-end">
+                <partial name="_Reminder" />
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+=======
+
+            <div class="col-9 text-end">
+                <partial name="_Reminder" />
+                <div class="table-responsive">
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+
+                    <table class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+
+                                <th data-sortable="true" data-column="name">
+                                    NAME
+                                </th>
+                                <th data-sortable="true" data-column="name">
+<<<<<<< HEAD
+                                    NAME
+                                </th>
+                                <th data-sortable="true" data-column="name">
+                                    STATUS
+                                </th>
+                                <th data-sortable="true" data-column="name">
+                                    PROGRESS
+                                </th>
+                                <th data-sortable="true" data-column="name">
+=======
+                                    STATUS
+                                </th>
+                                <th data-sortable="true" data-column="name">
+                                    PROGRESS
+                                </th>
+                                <th data-sortable="true" data-column="name">
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+                                    DESCRIPTION
+                                </th>
+                                <th data-sortable="true" data-column="name">
+
+                                    CATEGORY
+
+                                </th>
+                                <th data-sortable="true" data-column="name">
+                                    DUE DATE
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @if (!string.IsNullOrEmpty(Request.Query["searchString"]))
+                            {
+                                @foreach (Task1 task in Model.Tasks.Where(t => t.Name.Contains(Request.Query["searchString"]) ||
+                               t.Description.Contains(Request.Query["searchString"])))
+                                {
+                                    int hoursLeft = (int)(task.DueDate - DateTime.Now).TotalHours;
+                                    if (hoursLeft < 24 && hoursLeft >= 0 && task.StatusId!=3)
+                                    {
+                                        <tr data-categoryid="@task.CategoryId" data-statusid="@task.StatusId">
+                                        
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                    @task.Name
+                                            </td>
+<<<<<<< HEAD
+
+
+                                            <td width="17%" style="background-color: #f8d7da;">
+                                                <form method="post" asp-route-task="@task">
+                                                    <input asp-for="@task.Id" type="hidden" />
+
+                                                    <select class="form-select" asp-items="Model.StatusOptions"
+                                                    asp-for="@task.StatusId" id="status-select">
+                                                    </select>
+
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                                                </form>
+                                            </td>
+
+
+=======
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @(Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name ?? "Undefined")
+                                            </td>
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                    @if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Finished")
+                                                    {
+                                                    <span id="progress-value">100%</span>
+                                                    }
+                                                    else if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Unstarted")
+                                                    {
+                                                    <span id="progress-value">0%</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span id="progress-value">@task.Progress%</span>
+                                                    }
+
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @task.Description
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @(Model.Categories.FirstOrDefault(c => c.CategoryId == task.CategoryId)?.Name ?? "Undefined")
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @task.DueDate.ToShortDateString()
+                                            </td>
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a>
+                                                        <i class="bi bi-pencil-square"></i>
+                                                        <a id="editBtn" asp-page="./Tasks/EditTask" asp-route-id="@task.Id">Edit</a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a id="deleteButton" asp-page="/Index" asp-route-id="@task.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure that you want to delete this task?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    }
+                                    else
+                                    {
+                                        <tr data-categoryid="@task.CategoryId" data-statusid="@task.StatusId">
+                                        
+                                            <td width="10%">
+                                                    @task.Name
+                                            </td>
+<<<<<<< HEAD
+                                            <td width="17%">
+                                                <form method="post" asp-route-task="@task">
+                                                    <input asp-for="@task.Id" type="hidden" />
+
+                                                    <select class="form-select" asp-items="Model.StatusOptions"
+                                                    asp-for="@task.StatusId" id="status-select">
+                                                    </select>
+
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                                                </form>
+=======
+                                            <td width="15%">
+                                                    @(Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name ?? "Undefined")
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+                                            </td>
+                                            <td width="10%">
+                                                    @if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Finished")
+                                                    {
+                                                    <span id="progress-value">100%</span>
+                                                    }
+                                                    else if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Unstarted")
+                                                    {
+                                                    <span id="progress-value">0%</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span id="progress-value">@task.Progress%</span>
+                                                    }
+
+                                            </td>
+                                            <td width="15%">
+                                                    @task.Description
+                                            </td>
+                                            <td width="15%">
+                                                    @(Model.Categories.FirstOrDefault(c => c.CategoryId == task.CategoryId)?.Name ?? "Undefined")
+                                            </td>
+                                            <td width="15%">
+                                                    @task.DueDate.ToShortDateString()
+                                            </td>
+                                            <td width="10%">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a>
+                                                        <i class="bi bi-pencil-square"></i>
+                                                        <a id="editBtn" asp-page="./Tasks/EditTask" asp-route-id="@task.Id">Edit</a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td width="10%">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a id="deleteButton" asp-page="/Index" asp-route-id="@task.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure that you want to delete this task?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                @foreach (Task1 task in Model.Tasks)
+                                {
+                                    int hoursLeft = (int)(task.DueDate - DateTime.Now).TotalHours;
+                                    if (hoursLeft < 24 && hoursLeft >= 0 && task.StatusId != 3)
+                                    {
+                                        <tr data-categoryid="@task.CategoryId" data-statusid="@task.StatusId">
+                                        
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                    @task.Name
+                                            </td>
+<<<<<<< HEAD
+                                            <td width="17%" style="background-color: #f8d7da;">
+                                                <form method="post" asp-route-task="@task">
+                                                    <input asp-for="@task.Id" type="hidden" />
+
+                                                    <select class="form-select" asp-items="Model.StatusOptions"
+                                                    asp-for="@task.StatusId" id="status-select">
+                                                    </select>
+
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                                                </form>
+=======
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @(Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name ?? "Undefined")
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+                                            </td>
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                    @if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Finished")
+                                                    {
+                                                    <span id="progress-value">100%</span>
+                                                    }
+                                                    else if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Unstarted")
+                                                    {
+                                                    <span id="progress-value">0%</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span id="progress-value">@task.Progress%</span>
+                                                    }
+
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @task.Description
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @(Model.Categories.FirstOrDefault(c => c.CategoryId == task.CategoryId)?.Name ?? "Undefined")
+                                            </td>
+                                            <td width="15%" style="background-color: #f8d7da;">
+                                                    @task.DueDate.ToShortDateString()
+                                            </td>
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a>
+                                                        <i class="bi bi-pencil-square"></i>
+                                                        <a id="editBtn" asp-page="./Tasks/EditTask" asp-route-id="@task.Id">Edit</a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td width="10%" style="background-color: #f8d7da;">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a id="deleteButton" asp-page="/Index" asp-route-id="@task.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure that you want to delete this task?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+
+                                    }
+                                    else
+                                    {
+                                        <tr data-categoryid="@task.CategoryId" data-statusid="@task.StatusId">
+                                       
+                                            <td width="10%">
+                                                    @task.Name
+                                            </td>
+<<<<<<< HEAD
+                                            <td width="17%">
+                                                <form method="post" asp-route-task="@task">
+                                                    <input asp-for="@task.Id" type="hidden" />
+
+                                                    <select class="form-select" asp-items="Model.StatusOptions"
+                                                    asp-for="@task.StatusId" id="status-select">
+                                                    </select>
+
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+
+                                                </form>
+=======
+                                            <td width="15%">
+                                                    @(Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name ?? "Undefined")
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+                                            </td>
+                                            <td width="10%">
+                                                    @if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Finished")
+                                                    {
+                                                    <span id="progress-value">100%</span>
+                                                    }
+                                                    else if (@Model.Statuses.FirstOrDefault(c => c.StatusId == task.StatusId)?.Name == "Unstarted")
+                                                    {
+                                                    <span id="progress-value">0%</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span id="progress-value">@task.Progress%</span>
+                                                    }
+
+                                            </td>
+                                            <td width="15%">
+                                                    @task.Description
+                                            </td>
+                                            <td width="15%">
+                                                    @(Model.Categories.FirstOrDefault(c => c.CategoryId == task.CategoryId)?.Name ?? "Undefined")
+                                            </td>
+                                            <td width="15%">
+                                                    @task.DueDate.ToShortDateString()
+                                            </td>
+                                            <td width="10%">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a>
+                                                        <i class="bi bi-pencil-square"></i>
+                                                        <a id="editBtn" asp-page="./Tasks/EditTask" asp-route-id="@task.Id">Edit</a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td width="10%">
+                                                <div class="w-75 btn-group" role="group">
+                                                    <a id="deleteButton" asp-page="/Index" asp-route-id="@task.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure that you want to delete this task?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    #deleteButton {
+        color: black;
+        text-decoration: none;
+    }
+
+        #deleteButton:hover {
+            color: red;
+        }
+
+    #editBtn {
+        color: black;
+        text-decoration: none;
+    }
+
+        #editBtn:hover {
+            color: blue;
+        }
+</style>
+<script>
+
+    $(document).ready(function () {
+        //Category filter checkboxes
+        $('input[name="categoryFilter"]').change(function () {
+            //map every checked category into an array of integers
+            var selectedCategories = $('input[name="categoryFilter"]:checked').map(function () {
+                return parseInt($(this).val());
+            }).get();
+            //no category selected|| the "All" button is selected
+            if (selectedCategories.length == 0 || selectedCategories.includes(0)) {
+                //show the whole list
+                $('tr[data-categoryid]').show();
+            }
+            else {
+
+                $('tr[data-categoryid]').each(function () {
+                    //show the selected categories
+                    if (selectedCategories.includes($(this).data('categoryid'))) {
+                        $(this).show();
+                    }
+                    //hide the unselected categories
+                    else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
+
+    });
+
+
+    $(document).ready(function () {
+        //Category filter checkboxes
+        $('input[name="statusFilter"]').change(function () {
+            //map every checked category into an array of integers
+            var selectedCategories = $('input[name="statusFilter"]:checked').map(function () {
+                return parseInt($(this).val());
+            }).get();
+            //no category selected|| the "All" button is selected
+            if (selectedCategories.length == 0 || selectedCategories.includes(0)) {
+                //show the whole list
+                $('tr[data-statusid]').show();
+            }
+            else {
+
+                $('tr[data-statusid]').each(function () {
+                    //show the selected categories
+                    if (selectedCategories.includes($(this).data('statusid'))) {
+                        $(this).show();
+                    }
+                    //hide the unselected categories
+                    else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
+    });
+    //sorting
+
+    const table = document.querySelector('table');
+    //select table headers that have data-sortable attribute
+    const headers = table.querySelectorAll('th[data-sortable="true"]');
+
+    headers.forEach(header => {
+        //for each header create an icon
+        const icon = document.createElement('i');
+        icon.className = 'bi bi-arrow-down';
+        header.appendChild(icon);
+
+        header.addEventListener('click', () => {
+            const columnIndex = header.cellIndex;
+            const rows = [...table.querySelectorAll('tbody tr')];
+
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.cells[columnIndex].innerText.trim();
+                const cellB = rowB.cells[columnIndex].innerText.trim();
+                return cellA.localeCompare(cellB);
+            });
+
+            if (icon.classList.contains('bi-arrow-down')) {
+                rows.reverse();
+                icon.classList.replace('bi-arrow-down', 'bi-arrow-up');
+            } else {
+                icon.classList.replace('bi-arrow-up', 'bi-arrow-down');
+            }
+
+            table.querySelectorAll('tbody tr').forEach(row => row.remove());
+            rows.forEach(row => table.querySelector('tbody').appendChild(row));
+        });
+    });
+</script>

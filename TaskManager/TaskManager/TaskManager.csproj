@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>faa95dee-98a5-49df-a4d0-bcbba96d025d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Tasks\AddTask.cshtml" />
+    <None Include="Pages\Error.cshtml" />
+    <None Include="Pages\Index.cshtml" />
+    <None Include="Pages\Privacy.cshtml" />
+    <None Include="Pages\Shared\_Layout.cshtml" />
+    <None Include="Pages\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Pages\_ViewImports.cshtml" />
+    <None Include="Pages\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+  </ItemGroup>
+
+</Project>

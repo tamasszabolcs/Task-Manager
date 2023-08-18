@@ -1,0 +1,32 @@
+﻿@page "/signup"
+@model TaskManager.Pages.SignUp.SignUp
+@{
+    ViewData["Title"] = "SignUp";
+    var errorMessage = ViewData["Message"]?.ToString();
+}
+<h1 style="margin-top: 50px; margin-bottom: 20px;">SIGN UP</h1>
+<form style="border: 1.5px solid black; padding: 50px; max-width: 600px;" method="post">
+
+    <div class="form-group" style="margin-bottom: 30px; margin-top: 20px;">
+        <input type="text" class="form-control" style="height: 50px; border-radius: 30px; text-indent: 10px;" placeholder=" Username" asp-for="addUserRequest.Username">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 30px; ">
+        <input type="email" class="form-control" style="height: 50px; border-radius: 30px; text-indent: 10px;" placeholder="Email" asp-for="addUserRequest.Email">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 30px;">
+        <input type="password" class="form-control" style="height: 50px; border-radius: 30px; text-indent: 10px;" placeholder="Password" asp-for="addUserRequest.Password">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 30px;">
+        <input type="password" class="form-control" style="height: 50px; border-radius: 30px; text-indent: 10px;" placeholder="Password" asp-for="addUserRequest.RepeatedPassword">
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger" role="alert">@errorMessage</div>
+    }
+
+    <button style="height: 40px; width: 110px;" type="submit" class="btn btn-primary">Register</button>
+</form>

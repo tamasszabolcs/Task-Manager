@@ -1,0 +1,131 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    main .container .row {
+        display: flex;
+    }
+    
+    .table-responsive{
+        width: 830px;
+    }
+
+    main .container .row .col-6 {
+        flex: 0 0 34%;
+        width: 34%;
+        margin-right: 5px;
+    }
+
+        main .container .row .d-flex {
+            flex: 0 0 33%;
+            width: 33%;
+        }
+
+    table thead tr {
+        text-align: center;
+        background-color: midnightblue;
+        color: white;
+    }
+
+    table tbody tr td {
+        text-align: center;
+    }
+
+    table thead tr .form-select {
+        text-align: center;
+        background-color: midnightblue;
+        color: white;
+        border: none;
+        font-weight: 700;
+    }
+
+    select#categoryFilter::-ms-expand {
+        color: white;
+    }
+
+    select#categoryFilter {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M0 0l6 6 6-6" fill="white"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right .7em top 50%, 0 0;
+        background-size: .65em auto, 100%;
+    }
+
+
+
+    .search_clearSearch_buttons {
+        display: flex;
+    }
+
+    .above_table {
+        display: flex;
+        margin-bottom: 30px;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+    }
+
+    .form-check-label {
+        margin-left: 5px;
+        font-size: 16px;
+    }
+
+   
+
+    .col-3 .card{
+        margin-bottom: 20px;
+    }
+
+    .col-3_card{
+        display: flex;
+        justify-content: space-around;
+    }
+    .col-3_card .card {
+        flex: 0 0 auto;
+        max-width: 25%;
+        margin-bottom: 20px;
+    }
+
+    .card-body #categoryFilter {
+        color: #fff;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .card-header {
+        color: #fff;
+        background-color: midnightblue;
+    }
+
+    .progress-value {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #e9ecef;
+        border-radius: 50%;
+        margin: 10px auto;
+        font-size: 20px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}

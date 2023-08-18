@@ -1,0 +1,33 @@
+﻿@page "/categories/editcategory/{id:int}"
+@using TaskManager.Models
+@model TaskManager.Pages.EditCategoryModel
+@{
+    ViewData["Title"]= "Edit Category";
+}
+
+<div class="container">
+    <h3>Edit Category</h3>
+    <hr />
+    <br />
+    <form method="post">
+        <input asp-for="UpdateCategory.CategoryId" type="hidden" />
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="UpdateCategory.Name"></label>
+                <input asp-for="UpdateCategory.Name" class="form-control" />
+              @*  <span asp-validation-for="UpdateCategory.Name" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="UpdateCategory.Description"></label>
+                <input asp-for="UpdateCategory.Description" class="form-control" />
+               @* <span asp-validation-for="UpdateCategory.Description" class="text-danger"></span>*@
+            </div>
+        </div>
+        
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-default" <a asp-area="" asp-page="/Categories/CategoryList">Back to List</a></a>
+    </form>
+</div>  

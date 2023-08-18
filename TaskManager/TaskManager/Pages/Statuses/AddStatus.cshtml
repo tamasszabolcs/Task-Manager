@@ -1,0 +1,24 @@
+﻿@page "/status/addstatus"
+@model TaskManager.Pages.Statuses.AddStatusModel
+@{
+    ViewData["Title"]="Add Status";
+}
+<div class="container">
+    <h3>Add Status</h3>
+    <hr />
+    <br />
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="NewStatus.Name"></label>
+                <input asp-for="NewStatus.Name" class="form-control" />
+                <span asp-validation-for="NewStatus.Name" class="alert-danger"></span>*
+            </div>
+        </div>
+        
+        <br />
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-default" asp-page="/Statuses/StatusList">Cancel</a>
+    </form>
+</div>  

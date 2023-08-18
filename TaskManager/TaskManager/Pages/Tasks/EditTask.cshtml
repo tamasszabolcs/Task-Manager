@@ -1,0 +1,126 @@
+﻿@page "/edittask"
+@model TaskManager.Pages.Tasks.EditTaskModel
+@{
+}
+
+<div class="container">
+    <h3>Edit Task</h3>
+    <form method="post">
+        <input asp-for="TaskToUpdate.Id" type="hidden" />
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="progress-value">
+                    <span id="progress-value">@Model.TaskToUpdate.Progress%</span>
+                </div>
+                <label asp-for="TaskToUpdate.Progress">Progress</label>
+                <input asp-for="TaskToUpdate.Progress" type="range" min="0" max="100" step="1" class="form-range" id="progress-slider" />
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="TaskToUpdate.Name"></label>
+                <input asp-for="TaskToUpdate.Name" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="TaskToUpdate.Description"></label>
+                <input asp-for="TaskToUpdate.Description" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="TaskToUpdate.CategoryId">Category</label>
+                <select class="form-select" asp-items="Model.CategoryOptions"
+                        asp-for="TaskToUpdate.CategoryId"> </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="TaskToUpdate.StatusId">Status</label>
+                <select class="form-select" asp-items="Model.StatusOptions"
+                        asp-for="TaskToUpdate.StatusId" id="status-select"> </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="date">Due Date</label>
+                <br />
+                <input class="form-control" asp-for=TaskToUpdate.DueDate />
+            </div>
+        </div>
+
+        <br />
+<<<<<<< HEAD
+        <input type="submit" value="Save" class="btn btn-primary" />
+=======
+        <input type="submit" value="Save" class="btn btn-primary" style="width: 32%;" />
+>>>>>>> ef53d2af4683fa00f929d8ac8840a07f62f8463e
+        <a class="btn btn-default" asp-page="/Index">Cancel</a>
+    </form>
+</div>
+
+
+<script>
+    const slider = document.getElementById("progress-slider");
+    const progressValue = document.getElementById("progress-value");
+    const statusSelect = document.querySelector("select[name='TaskToUpdate.StatusId']");
+
+    // Set the initial state of the slider and status select
+    //slider.disabled = (statusSelect.value !== "2");
+    slider.disabled = (statusSelect.value == "1" || statusSelect.value == "3");
+    //if(statusSelect.value > 3){
+    //    slider.disabled = false;
+    //}
+
+    if (statusSelect.value === "3") { // "Finished" status
+        slider.disabled = true; // Disable the slider
+        slider.value = 100; // Set progress to 100%
+        progressValue.innerText = "100%"; // Update the progress value
+    }
+
+    if (statusSelect.value === "1") { // "Unstarted" status
+        slider.disabled = true; // Disable the slider
+        slider.value = 0; // Set progress to 100%
+        progressValue.innerText = "0%"; // Update the progress value
+    }
+
+    // Update the slider and status select when the value of the status select changes
+    statusSelect.addEventListener("change", function () {
+        slider.disabled = (this.value !== "2" && this.value <= 3);
+        //if (statusSelect.value > 3) {
+        //    slider.disabled = false;
+        //}
+        if (!slider.disabled) {
+            progressValue.innerText = `${slider.value}%`;
+        } else if (this.value === "3") { // "Finished" status
+            slider.disabled = true; // Disable the slider
+            slider.value = 100; // Set progress to 100%
+            progressValue.innerText = "100%"; // Update the progress value
+        }
+        else if (this.value === "1") { // "Unstarted" status
+            slider.disabled = true; // Disable the slider
+            slider.value = 0; // Set progress to 0%
+            progressValue.innerText = "0%"; // Update the progress value
+        }
+    });
+
+    // Update the progress value and status select as the slider is moved
+    slider.addEventListener("input", function () {
+        progressValue.innerText = `${this.value}%`;
+        if (this.value == 100) {
+            statusSelect.value = "3"; // Set the status to "Finished"
+            slider.disabled = true; // Disable the slider
+        } else if (this.value == 0) {
+            statusSelect.value = "1"; // Set the status to "Unstarted"
+            slider.disabled = true; // Disable the slider
+        }
+    });
+
+</script>

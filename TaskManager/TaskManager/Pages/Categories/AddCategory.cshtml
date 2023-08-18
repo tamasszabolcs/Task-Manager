@@ -1,0 +1,36 @@
+﻿@page "/categories/addcategory"
+@model TaskManager.Pages.Categories.AddCategoryModel
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<h1>AddCategory</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AddCategoryModel2.Name" class="control-label"></label>
+                <input asp-for="AddCategoryModel2.Name" class="form-control" />
+                <span asp-validation-for="AddCategoryModel2.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddCategoryModel2.Description" class="control-label"></label>
+                <input asp-for="AddCategoryModel2.Description" class="form-control" />
+                <span asp-validation-for="AddCategoryModel2.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-area="" asp-page="/Categories/CategoryList">Back to List</a>
+</div>
+

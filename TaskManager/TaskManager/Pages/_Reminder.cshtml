@@ -1,0 +1,66 @@
+﻿@using TaskManager.Models;
+
+@foreach (Task1 task in Model.Tasks)
+{
+    int hoursLeft = (int)(task.DueDate - DateTime.Now).TotalHours;
+    int minutesLeft = (int)(task.DueDate - DateTime.Now).TotalMinutes;
+    if (minutesLeft < 1440 && minutesLeft >= 0 && task.StatusId!=3)
+    {
+        <div class="alert alert-danger reminder" role="alert" style="text-align: center; display: flex; flex-direction: column; padding: 0px 0px; margin-bottom: 10px;" id="@task.Id">
+            <button class="closeButton" style="display: flex; align-self: flex-end;">&times;</button>
+            @if(minutesLeft < 60){
+                if (minutesLeft < 1)
+                {
+                    <div style="margin-bottom: 10px"><strong style="color: red;">Reminder!</strong> You should finish the <strong>@task.Name</strong> task in the next 1 minute.</div>
+                }
+                else if(minutesLeft > 1)
+                {
+                    <div style="margin-bottom: 10px"><strong style="color: red;">Reminder!</strong> You should finish the <strong>@task.Name</strong> task in the next @minutesLeft minutes.</div>
+                }
+            }else
+            {
+                if(hoursLeft == 1){
+                    <div style="margin-bottom: 10px"><strong style="color: red;">Reminder!</strong> You should finish the <strong>@task.Name</strong> task in the next @hoursLeft hour.</div>
+                }
+                else
+                {
+                    <div style="margin-bottom: 10px"><strong style="color: red;">Reminder!</strong> You should finish the <strong>@task.Name</strong> task in the next @hoursLeft hours.</div>
+                }
+            }
+        </div>
+    }
+}
+
+<style>
+    .closeButton {
+        background-color: #f8d7da;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .closeButton:hover {
+            color: red;
+        }
+</style>
+
+<script>
+    let reminders = document.querySelectorAll(".reminder");
+
+    reminders.forEach(function (reminder) {
+        let closeButton = reminder.querySelector(".closeButton");
+
+        closeButton.addEventListener("click", function () {
+            reminder.remove();
+            localStorage.setItem(reminder.id, "removed");
+        });
+
+        if (localStorage.getItem(reminder.id) === "removed") {
+            reminder.remove();
+        }
+    });
+</script>
